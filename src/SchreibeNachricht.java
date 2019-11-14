@@ -6,8 +6,7 @@ public class SchreibeNachricht extends Thread{
     public void run() {
         while(true) {
             Scanner scanner = new Scanner(System.in);
-            String nachricht = scanner.next();
-            System.out.println(nachricht);
+            String nachricht = scanner.nextLine();
             try {
                 Client.schreibeNachricht(Client.socket, nachricht);
             } catch (IOException e) {
