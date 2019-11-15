@@ -9,6 +9,7 @@ public class Accept extends Thread{
             try {
                 Socket socket = Server.socket.accept();
                 Server.clients.add(socket);
+                Server.names.add("null");
                 System.out.println("Connected: " + socket.getInetAddress()+ ":" + socket.getPort());
             } catch (IOException e) {
                 e.printStackTrace();

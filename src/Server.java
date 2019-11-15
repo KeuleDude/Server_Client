@@ -8,16 +8,18 @@ import java.util.Scanner;
 public class Server {
     public static ServerSocket socket;
     public static ArrayList<Socket> clients;
+    public static ArrayList<String> names;
     public Server(int port) throws IOException {
         socket = new ServerSocket(port);
         clients = new ArrayList<>();
+        names = new ArrayList<>();
         Accept accept = new Accept();
         accept.start();
     }
 
 
     public void laufen() throws IOException {
-
+    		System.out.println("Welcome to the Server Messaging System. Clients can now connect to your Server.");
             SchreibeNachrichtServer schreibeNachrichtServer = new SchreibeNachrichtServer();
             schreibeNachrichtServer.start();
             NachrichtLesen nachrichtLesen = new NachrichtLesen();

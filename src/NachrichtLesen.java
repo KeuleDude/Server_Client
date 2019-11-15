@@ -27,14 +27,20 @@ public class NachrichtLesen extends Thread{
             char[] buffer = new char[200];
             int anzahlZeichen = bufferedReader.read(buffer, 0, 200); // blockiert bis Nachricht empfangen
             String nachricht = new String(buffer, 0, anzahlZeichen);
-            if(nachricht.equalsIgnoreCase("quit")){
+            if(nachricht.equalsIgnoreCase(".quit")){
                 System.out.println("Connection closed by " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
                 Server.clients.remove(i);
                 System.out.println("There are " + Server.clients.size() + " more Client(s) connected");
                 clientSocket.close();
                 return;
             }
-            System.out.println("Nachricht von " + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + " :");
+            if(nachricht.startsWith(".name ")) {
+            	nachricht = nachricht.substring(6);
+            	Server.names.set(i, nachricht);
+            	System.out.println(clientSocket.getInetAddress() + ":" + clientSocket.getPort() + " changed his Name to '" + nachricht +"'");
+            	return;
+            }
+            System.out.println("Message from " + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + " :");
             System.out.println(nachricht);
         }
     }
