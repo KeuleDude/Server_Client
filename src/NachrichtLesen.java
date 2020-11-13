@@ -14,6 +14,7 @@ public class NachrichtLesen {
 			System.out.println("Connection closed by " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 			Server.clients.remove(clientSocket);
 			System.out.println("There are " + Server.clients.size() + " more Client(s) connected");
+			Accept.sockReader.get(clientSocket).stop();
 			clientSocket.close();
 
 		} else if (nachricht.startsWith("/name ")) {
@@ -43,7 +44,6 @@ public class NachrichtLesen {
 			Server.schreibeNachricht(nachricht);
 		}else if(nachricht.startsWith("/msg ")) {
 			nachricht = nachricht.substring(5);
-			System.out.println(nachricht);
 			String[] split= nachricht.split(" ",2);
 			String name = split[0];
 			String nachrichtneu = split[1];
